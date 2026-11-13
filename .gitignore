@@ -1,0 +1,3 @@
+# Original phone photos (full size, with GPS metadata). Publish only stripped copies.
+docs/images/PXL_*
+.DS_Store

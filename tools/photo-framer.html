@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Photo framer</title>
+<!-- Local helper, NOT part of the website (lives outside docs/).
+     Open this file in a browser, frame the photo, copy the line into docs/index.html. -->
+<style>
+  :root { --bg:#fff; --text:#1f2328; --muted:#59636e; --border:#d0d7de; --accent:#0077a3; --surface:#f6f8fa; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#15181c; --text:#e6e8eb; --muted:#9aa4ae; --border:#2b3138; --accent:#4cc3eb; --surface:#1c2026; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--text);
+         font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
+  main { max-width: 52rem; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+  h1 { font-size: 1.4rem; margin: 0 0 .25rem; }
+  .hint { color: var(--muted); margin: 0 0 1.5rem; font-size: .95rem; }
+  .layout { display:flex; flex-wrap:wrap; gap:2rem; align-items:flex-start; }
+  .previews { display:flex; gap:1.5rem; align-items:flex-end; }
+  .frame { position:relative; border-radius:50%; overflow:hidden; background:var(--surface);
+           outline:1px solid var(--border); touch-action:none; }
+  .frame.big { width:320px; height:320px; cursor:grab; }
+  .frame.big.dragging { cursor:grabbing; }
+  .frame.small { width:160px; height:160px; }
+  .frame img { position:absolute; left:50%; top:50%; max-width:none; height:auto;
+               user-select:none; -webkit-user-drag:none; pointer-events:none; }
+  .label { font-size:.8rem; color:var(--muted); text-align:center; margin-top:.4rem; }
+  .controls { flex:1 1 16rem; min-width:16rem; }
+  .control { margin-bottom:1rem; }
+  .control label { display:flex; justify-content:space-between; font-size:.9rem; }
+  .control output { font-variant-numeric: tabular-nums; color:var(--muted); }
+  input[type=range] { width:100%; accent-color: var(--accent); }
+  pre { background:var(--surface); border:1px solid var(--border); border-radius:6px;
+        padding:.75rem; white-space:pre-wrap; word-break:break-all; font-size:.85rem; margin:.25rem 0 .5rem; }
+  button { font:inherit; padding:.35rem .9rem; border-radius:6px; border:1px solid var(--border);
+           background:var(--surface); color:var(--text); cursor:pointer; }
+  button:hover { border-color: var(--accent); }
+  .file { font-size:.85rem; color:var(--muted); margin-top:1.5rem; }
+  @media (max-width: 420px) { .frame.big { width:260px; height:260px; } }
+</style>
+</head>
+<body>
+<main>
+  <h1>Photo framer</h1>
+  <p class="hint">Drag the big circle to move the photo; scroll or pinch to zoom. Then copy the line into the
+    <code>&lt;div class="profile-photo" …&gt;</code> tag in <code>docs/index.html</code>.</p>
+
+  <div class="layout">
+    <div>
+      <div class="previews">
+        <div>
+          <div class="frame big" id="big"><img id="imgBig" alt=""></div>
+          <div class="label">Drag to position</div>
+        </div>
+        <div>
+          <div class="frame small"><img id="imgSmall" alt=""></div>
+          <div class="label">Actual size</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <div class="control">
+        <label for="zoom">Zoom <output id="zoomOut"></output></label>
+        <input type="range" id="zoom" min="1" max="6" step="0.05">
+      </div>
+      <div class="control">
+        <label for="x">Horizontal (x) <output id="xOut"></output></label>
+        <input type="range" id="x" min="0" max="100" step="0.5">
+      </div>
+      <div class="control">
+        <label for="y">Vertical (y) <output id="yOut"></output></label>
+        <input type="range" id="y" min="0" max="100" step="0.5">
+      </div>
+
+      <div>Paste into <code>docs/index.html</code>:</div>
+      <pre id="snippet"></pre>
+      <button id="copy" type="button">Copy</button>
+      <button id="reset" type="button">Reset</button>
+
+      <div class="file">
+        Photo: <code>docs/images/profile.jpg</code>. To try a different one:
+        <input type="file" id="file" accept="image/*">
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+  // Keep these defaults in sync with docs/index.html if you like
+  const DEFAULTS = { zoom: 2.4, x: 56, y: 50 };
+  const state = { ...DEFAULTS };
+
+  const imgs = [document.getElementById("imgBig"), document.getElementById("imgSmall")];
+  const big = document.getElementById("big");
+  const zoomEl = document.getElementById("zoom");
+  const xEl = document.getElementById("x");
+  const yEl = document.getElementById("y");
+  const snippet = document.getElementById("snippet");
+
+  imgs.forEach(img => img.src = "../docs/images/profile.jpg");
+
+  function round(v, d) { const f = Math.pow(10, d); return Math.round(v * f) / f; }
+  function clamp(v, lo, hi) { return Math.min(hi, Math.max(lo, v)); }
+
+  function render() {
+    state.zoom = round(clamp(state.zoom, 1, 6), 2);
+    state.x = round(clamp(state.x, 0, 100), 1);
+    state.y = round(clamp(state.y, 0, 100), 1);
+    imgs.forEach(img => {
+      img.style.width = (state.zoom * 100) + "%";
+      img.style.transform = `translate(${-state.x}%, ${-state.y}%)`;
+    });
+    zoomEl.value = state.zoom; xEl.value = state.x; yEl.value = state.y;
+    document.getElementById("zoomOut").textContent = state.zoom;
+    document.getElementById("xOut").textContent = state.x + "%";
+    document.getElementById("yOut").textContent = state.y + "%";
+    snippet.textContent = `style="--zoom: ${state.zoom}; --x: ${state.x}%; --y: ${state.y}%;"`;
+  }
+
+  zoomEl.addEventListener("input", () => { state.zoom = +zoomEl.value; render(); });
+  xEl.addEventListener("input", () => { state.x = +xEl.value; render(); });
+  yEl.addEventListener("input", () => { state.y = +yEl.value; render(); });
+
+  // Drag to pan (moving the photo with the pointer)
+  let drag = null;
+  big.addEventListener("pointerdown", e => {
+    big.setPointerCapture(e.pointerId);
+    big.classList.add("dragging");
+    drag = { px: e.clientX, py: e.clientY, x: state.x, y: state.y };
+  });
+  big.addEventListener("pointermove", e => {
+    if (!drag) return;
+    const img = imgs[0];
+    const w = img.offsetWidth, h = img.offsetHeight;
+    if (!w || !h) return;
+    state.x = drag.x - (e.clientX - drag.px) / w * 100;
+    state.y = drag.y - (e.clientY - drag.py) / h * 100;
+    render();
+  });
+  ["pointerup", "pointercancel"].forEach(t => big.addEventListener(t, () => {
+    drag = null; big.classList.remove("dragging");
+  }));
+
+  // Scroll / trackpad pinch to zoom
+  big.addEventListener("wheel", e => {
+    e.preventDefault();
+    state.zoom *= Math.exp(-e.deltaY * 0.002);
+    render();
+  }, { passive: false });
+
+  document.getElementById("copy").addEventListener("click", async e => {
+    try { await navigator.clipboard.writeText(snippet.textContent); e.target.textContent = "Copied"; }
+    catch { getSelection().selectAllChildren(snippet); e.target.textContent = "Press Cmd+C"; }
+    setTimeout(() => e.target.textContent = "Copy", 1500);
+  });
+  document.getElementById("reset").addEventListener("click", () => { Object.assign(state, DEFAULTS); render(); });
+
+  document.getElementById("file").addEventListener("change", e => {
+    const f = e.target.files[0];
+    if (!f) return;
+    const url = URL.createObjectURL(f);
+    imgs.forEach(img => img.src = url);
+  });
+
+  render();
+</script>
+</body>
+</html>

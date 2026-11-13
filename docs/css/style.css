@@ -116,13 +116,30 @@ p { margin: 0 0 1rem; }
   align-items: flex-start;
 }
 
+/* Circular photo frame. Framing is set per photo in index.html:
+   --zoom  photo width as a multiple of the circle's width (1 = photo exactly as wide as the circle)
+   --x/--y the point of the photo (in % of its width/height) that sits at the circle's centre */
 .profile-photo {
+  --zoom: 1;
+  --x: 50%;
+  --y: 50%;
+  position: relative;
   flex: 0 0 auto;
   width: 160px;
   height: 160px;
   border-radius: 50%;
-  object-fit: cover;
+  overflow: hidden;
   background: var(--surface);
+}
+
+.profile-photo img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: calc(var(--zoom) * 100%);
+  max-width: none;
+  height: auto;
+  transform: translate(calc(-1 * var(--x)), calc(-1 * var(--y)));
 }
 
 .profile-text h1 { margin-bottom: 0.25rem; }

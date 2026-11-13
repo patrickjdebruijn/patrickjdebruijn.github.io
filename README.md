@@ -9,7 +9,7 @@ docs/
   publications.html   Publications
   css/style.css       All layout and styling (rarely needs editing)
   js/math.js          LaTeX math setup (rarely needs editing)
-  images/             Profile photo
+  images/             Profile photo (profile.jpg)
   figures/            Research figures
   videos/             Research videos
 ```
@@ -24,15 +24,27 @@ Each page has short `<!-- ===== Section ===== -->` comments that mark where each
 
 **Bio:** edit the `<p>` under `<h2>About</h2>`. Add more paragraphs with additional `<p>…</p>` blocks.
 
-**Photo:** save a square photo as `docs/images/profile.jpg` and change `src="images/profile.svg"` to `src="images/profile.jpg"`.
+**Photo:** the site uses `docs/images/profile.jpg`.
+
+- **Framing:** open `tools/photo-framer.html` in a browser (double-click it). Drag to move the photo and scroll to zoom. Then copy the `style="…"` line it gives you into the `<div class="profile-photo" …>` tag in `docs/index.html`. The three numbers can also be edited by hand:
+  - `--zoom`: how many circle-widths wide the photo is. Higher zooms in.
+  - `--x` and `--y`: the point of the photo, in % from the left and top, that sits at the centre of the circle.
+- **Replacing the photo:** phone photos are large and contain **GPS location** in their metadata. Make a small copy without the metadata before publishing:
+
+  ```sh
+  sips -Z 1400 original.jpg --out docs/images/profile.jpg     # resize (keeps metadata!)
+  python3 tools/strip-jpeg-metadata.py docs/images/profile.jpg  # remove EXIF/GPS
+  strings docs/images/profile.jpg | grep -c Exif                # should print 0
+  ```
+- Original `PXL_*` phone photos in `docs/images/` are ignored by git (see `.gitignore`), so they won't be published by accident.
 
 **Contact links:** add `<li>` items to `<ul class="contact-links">`:
 
 ```html
-<li><a href="mailto:name@tudelft.nl">Email</a></li>
-<li><a href="https://scholar.google.com/citations?user=XXXX">Google Scholar</a></li>
-<li><a href="https://orcid.org/0000-0000-0000-0000">ORCID</a></li>
-<li><a href="https://www.linkedin.com/in/XXXX">LinkedIn</a></li>
+<li><a href="mailto:P.J.deBruijn@tudelft.nl">Email</a></li>
+<!-- <li><a href="https://scholar.google.com/citations?user=XXXX">Google Scholar</a></li> -->
+<li><a href="https://orcid.org/0009-0001-0555-012X">ORCID</a></li>
+<li><a href="https://www.linkedin.com/in/patrick-de-bruijn-a11704140">LinkedIn</a></li>
 ```
 
 **Education:** replace `YYYY`, `Field of study` and `University, City, Country` in the `<ul class="timeline">` list. Each entry looks like this:
