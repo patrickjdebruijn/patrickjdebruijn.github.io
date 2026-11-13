@@ -49,7 +49,8 @@ img { max-width: 100%; height: auto; }
 .container {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 0 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 /* ---------- Header / navigation ---------- */
@@ -151,16 +152,76 @@ p { margin: 0 0 1rem; }
   .profile-photo { width: 140px; height: 140px; }
 }
 
-/* ---------- Simple lists (news, etc.) ---------- */
+.affiliation .role { color: var(--text); font-weight: 600; }
 
-.news { list-style: none; padding: 0; margin: 0; }
-.news li { margin-bottom: 0.5rem; }
-.news .date {
-  font-family: var(--font-ui);
-  color: var(--muted);
-  font-size: 0.9rem;
-  margin-right: 0.5rem;
+.lead { font-size: 1.2rem; color: var(--muted); }
+
+.empty-note { color: var(--muted); font-style: italic; }
+
+/* ---------- Interests ---------- */
+
+.interests { padding-left: 1.2rem; margin: 0; }
+.interests li { margin-bottom: 0.25rem; }
+
+/* ---------- Education / timeline ---------- */
+
+.timeline { list-style: none; padding: 0; margin: 0; }
+
+.timeline li {
+  display: grid;
+  grid-template-columns: 8.5rem 1fr;
+  gap: 0 1rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--border);
 }
+
+.timeline li:last-child { border-bottom: none; }
+
+.timeline .years {
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+  color: var(--muted);
+  padding-top: 0.15rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.timeline .degree { display: block; font-weight: 600; }
+.timeline .place  { display: block; color: var(--muted); }
+
+@media (max-width: 600px) {
+  .timeline li { grid-template-columns: 1fr; }
+}
+
+/* ---------- Figures & videos ---------- */
+
+figure { margin: 1.5rem 0; }
+
+figure img,
+figure video {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+
+figcaption {
+  font-family: var(--font-ui);
+  font-size: 0.875rem;
+  color: var(--muted);
+  margin-top: 0.5rem;
+  line-height: 1.5;
+}
+
+/* Two figures side by side on wide screens, stacked on phones */
+.figure-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 1.5rem;
+}
+
+.figure-grid figure { margin: 0; }
 
 /* ---------- Publications ---------- */
 
