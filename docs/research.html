@@ -4,9 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Research · Patrick de Bruijn</title>
+  <meta name="title-nl" content="Onderzoek · Patrick de Bruijn">
   <meta name="description" content="Research by Patrick de Bruijn on coastally trapped waves and the oceanic waveguide.">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script src="js/lang.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
   <script defer src="js/math.js"></script>
@@ -15,61 +17,209 @@
   <header class="site-header">
     <div class="container">
       <a class="site-title" href="index.html">Patrick de Bruijn</a>
-      <nav class="site-nav">
-        <a href="index.html">Home</a>
-        <a href="research.html" aria-current="page">Research</a>
-        <a href="publications.html">Publications</a>
-      </nav>
+      <div class="header-right">
+        <nav class="site-nav">
+          <a href="index.html">Home</a>
+          <a href="research.html" aria-current="page"><span lang="en">Research</span><span lang="nl">Onderzoek</span></a>
+          <a href="publications.html"><span lang="en">Publications</span><span lang="nl">Publicaties</span></a>
+          <a href="blog/index.html">Blog</a>
+        </nav>
+        <button class="lang-toggle" type="button">
+          <span lang="en" title="Nederlands"><svg viewBox="0 0 9 6" width="21" height="14" aria-hidden="true"><rect width="9" height="6" fill="#21468B"/><rect width="9" height="4" fill="#FFF"/><rect width="9" height="2" fill="#AE1C28"/></svg><span class="sr-only">Nederlands</span></span>
+          <span lang="nl" title="English"><svg viewBox="0 0 60 30" width="28" height="14" aria-hidden="true"><clipPath id="uk-s"><path d="M0,0 v30 h60 v-30 z"/></clipPath><clipPath id="uk-t"><path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z"/></clipPath><g clip-path="url(#uk-s)"><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#FFF" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" clip-path="url(#uk-t)" stroke="#C8102E" stroke-width="4"/><path d="M30,0 v30 M0,15 h60" stroke="#FFF" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/></g></svg><span class="sr-only">English</span></span>
+        </button>
+      </div>
     </div>
   </header>
 
   <main class="container">
 
-    <h1>Research</h1>
-    <p class="lead">
+    <h1 lang="en">Research</h1>
+    <h1 lang="nl">Onderzoek</h1>
+    <p class="lead" lang="en">
       My research is on coastally trapped waves and on the oceanic waveguide:
       how the ocean's boundaries guide signals over long distances, and how
       processes at those boundaries connect to the ocean interior.
     </p>
+    <p class="lead" lang="nl">
+      Mijn onderzoek gaat over kustgebonden golven en de oceanische golfgeleider:
+      hoe de randen van de oceaan signalen over grote afstanden geleiden, en hoe
+      processen aan die randen verbonden zijn met het binnenste van de oceaan.
+    </p>
 
     <!-- ===== Coastally trapped waves ===== -->
     <section class="research-topic">
-      <h2>Coastally trapped waves</h2>
-      <p>
-        Coastally trapped waves are long, low-frequency waves that propagate along
-        continental margins, guided by the coastline and the sloping shelf. In the
-        Northern Hemisphere they travel with the coast on their right. The simplest
-        example is the coastal Kelvin wave, whose amplitude decays away from the coast
-        over the Rossby radius of deformation:
+      <h2 lang="en">Coastally trapped waves</h2>
+      <h2 lang="nl">Kustgebonden golven</h2>
+      <p lang="en">
+        The ocean is a gigantic bathtub that consists of the deep ocean, the continental
+        shelves, and the coastal boundaries. The walls of the bathtub, the continental
+        slopes, act as waveguides that carry signals over long distances. These signals
+        are called coastally trapped waves, but they are unlike the waves you see on the
+        beach. They are much longer, faster and smaller in amplitude, and have periods
+        from several days to weeks, much like the weather systems that generate them.
+        Upon excitation, they distribute the effects of forcing along the coast and
+        continental slopes as they propagate along them.
+      </p>
+      <p lang="nl">
+        De oceaan is een gigantische badkuip, die bestaat uit de diepe oceaan, de
+        continentale platten en de kustranden. De wanden van de badkuip, de continentale
+        hellingen, werken als golfgeleiders die signalen over grote afstanden meevoeren.
+        Deze signalen heten kustgebonden golven (<i>coastally trapped waves</i>), maar ze
+        lijken in niets op de golven die je op het strand ziet. Ze zijn veel langer,
+        sneller en kleiner in amplitude, en hebben perioden van enkele dagen tot weken,
+        net als de weersystemen die ze opwekken. Eenmaal opgewekt verspreiden ze de
+        effecten van de forcering langs de kust en de continentale hellingen, terwijl ze
+        zich daarlangs voortplanten.
+      </p>
+
+      <h3 lang="en">Propagation</h3>
+      <h3 lang="nl">Voortplanting</h3>
+      <p lang="en">
+        Coastally trapped waves are sub-inertial: their periods are longer than the local
+        inertial period (about 16 hours at 50&deg;N). They owe their existence to two
+        restoring mechanisms. Earth's rotation, together with the coastal wall and
+        the ocean's stratification, supports Kelvin waves. The sloping bottom of the
+        shelf and slope supports continental shelf waves, through conservation of
+        potential vorticity. Coastally trapped waves are a hybrid of the two.
+        They propagate in one direction only: with the coast on their right in the
+        Northern Hemisphere, and on their left in the Southern Hemisphere. At long
+        wavelengths they travel at speeds of a few metres per second, or several hundred
+        kilometres per day.
+      </p>
+      <p lang="nl">
+        Kustgebonden golven zijn sub-inertieel: hun perioden zijn langer dan de lokale
+        inertiaalperiode (ongeveer 16 uur op 50&deg;NB). Ze danken hun bestaan aan twee
+        herstellende mechanismen. De draaiing van de aarde maakt, samen met de kustwand
+        en de gelaagdheid van de oceaan, Kelvingolven mogelijk. De hellende bodem van het
+        plat en de helling maakt, via behoud van potenti&euml;le vorticiteit, platgolven
+        (<i>continental shelf waves</i>) mogelijk. Kustgebonden golven zijn een mengvorm
+        van beide. Ze planten zich in maar &eacute;&eacute;n richting voort: met de kust aan hun
+        rechterhand op het noordelijk halfrond, en aan hun linkerhand op het zuidelijk
+        halfrond. Bij lange golflengten bewegen ze met enkele meters per seconde, oftewel
+        enkele honderden kilometers per dag.
+      </p>
+
+      <h3 lang="en">Modes</h3>
+      <h3 lang="nl">Modi</h3>
+      <p lang="en">
+        The wave field can be written as a sum of modes, each with its own cross-shelf
+        and vertical structure $F_n(x,z)$ and alongshore amplitude $\phi_n(y,t)$:
+      </p>
+      <p lang="nl">
+        Het golfveld kan worden geschreven als een som van modi, elk met een eigen
+        structuur dwars op de kust en in de verticaal, $F_n(x,z)$, en een amplitude langs
+        de kust, $\phi_n(y,t)$:
       </p>
       $$
-        \eta \propto e^{-x/L_R}, \qquad L_R = \frac{\sqrt{gH}}{|f|}.
+        p(x,y,z,t) = \sum_{n=1}^{\infty} F_n(x,z)\,\phi_n(y,t).
       $$
-    </section>
+      <p lang="en">
+        The first mode is the fastest. Higher modes are slower and have more structure
+        across the shelf. Stratification sets the shape of each mode. In weak stratification the
+        modes are nearly depth-independent shelf waves. In strong stratification they become
+        bottom-intensified and behave more like internal Kelvin waves.
+      </p>
+      <p lang="nl">
+        De eerste modus is de snelste. Hogere modi zijn langzamer en hebben meer
+        structuur dwars over het plat. De gelaagdheid bepaalt de vorm van elke modus. Bij
+        zwakke gelaagdheid zijn de modi vrijwel diepte-onafhankelijke platgolven. Bij
+        sterke gelaagdheid concentreren ze zich bij de bodem en gedragen ze zich meer als
+        interne Kelvingolven.
+      </p>
 
-    <!-- ===== The oceanic waveguide ===== -->
-    <section class="research-topic">
-      <h2>The oceanic waveguide</h2>
-      <p>
-        Coastlines, continental slopes and the equator act as waveguides. They carry
-        signals far from where those signals were generated, linking distant regions
-        of the ocean.
+      <figure>
+        <video src="videos/callies_modes1-5_3d.mp4" autoplay muted loop playsinline controls preload="metadata"></video>
+        <figcaption>
+          <span lang="en">Coastally trapped wave modes 1&ndash;5, 3D view.</span>
+          <span lang="nl">Kustgebonden golfmodi 1&ndash;5, driedimensionaal aanzicht.</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <video src="videos/callies_modes1-5_topview.mp4" autoplay muted loop playsinline controls preload="metadata"></video>
+        <figcaption>
+          <span lang="en">Coastally trapped wave modes 1&ndash;5, top view.</span>
+          <span lang="nl">Kustgebonden golfmodi 1&ndash;5, bovenaanzicht.</span>
+        </figcaption>
+      </figure>
+
+      <h3 lang="en">Forcing</h3>
+      <h3 lang="nl">Forcering</h3>
+      <p lang="en">
+        The main driver is the alongshore wind. Wind blowing along the coast drives
+        Ekman transport towards or away from the coast, raising or lowering sea level
+        at the coast. Changes in atmospheric pressure also generate waves, as do
+        signals arriving from elsewhere, such as equatorial Kelvin waves that reach an
+        eastern boundary and continue poleward along the coast. Neglecting coupling
+        between modes, each mode obeys a forced, damped first-order wave equation in
+        the alongshore direction $y$ (taken positive in the direction of propagation):
+      </p>
+      <p lang="nl">
+        De belangrijkste aandrijving is de wind langs de kust. Wind die langs de kust
+        waait, drijft Ekmantransport naar de kust toe of ervan af, waardoor de zeespiegel
+        aan de kust stijgt of daalt. Ook veranderingen in de luchtdruk wekken golven op,
+        net als signalen die van elders binnenkomen, zoals equatoriale Kelvingolven die
+        een oostrand van een oceaanbekken bereiken en langs de kust richting de pool
+        doorlopen. Als we de koppeling tussen modi verwaarlozen, voldoet elke modus aan
+        een geforceerde, gedempte eerste-orde golfvergelijking in de richting langs de
+        kust, $y$ (positief in de voortplantingsrichting):
+      </p>
+      $$
+        \frac{1}{c_n}\frac{\partial \phi_n}{\partial t} + \frac{\partial \phi_n}{\partial y}
+        + a_n \phi_n = b_n\,\tau^{y},
+      $$
+      <p lang="en">
+        where $c_n$ is the phase speed of mode $n$, $a_n$ represents bottom friction,
+        $b_n$ is a wind-coupling coefficient, and $\tau^{y}$ is the alongshore wind stress.
+        Because the waves only travel in one direction, the response at a given location
+        depends on the wind everywhere upstream along the coast.
+      </p>
+      <p lang="nl">
+        waarin $c_n$ de fasesnelheid van modus $n$ is, $a_n$ de bodemwrijving voorstelt,
+        $b_n$ een windkoppelingsco&euml;ffici&euml;nt is en $\tau^{y}$ de windschuifspanning
+        langs de kust. Omdat de golven maar in &eacute;&eacute;n richting lopen, hangt de respons
+        op een bepaalde plek af van de wind overal stroomopwaarts langs de kust.
       </p>
     </section>
 
-    <!-- ===== Boundary–interior connections ===== -->
+    <!-- ===== Western European shelf ===== -->
     <section class="research-topic">
-      <h2>Connecting boundaries to the interior</h2>
-      <p>
-        I am interested in how processes at the ocean's boundaries connect to, and
-        influence, the ocean interior.
+      <h2 lang="en">Impact on the western European shelf</h2>
+      <h2 lang="nl">Invloed op het West-Europese continentaal plat</h2>
+      <p lang="en">
+        Along the eastern boundary of the North Atlantic, coastally trapped waves travel
+        poleward: from the Iberian Peninsula, along the Bay of Biscay and the shelf west
+        of the British Isles, towards Norway. In a recent
+        <a href="https://doi.org/10.22541/essoar.15012694/v1">preprint</a>, we diagnose
+        these waves in a high-resolution (1/36&deg;) regional ocean reanalysis.
       </p>
+      <p lang="nl">
+        Langs de oostrand van de Noord-Atlantische Oceaan lopen kustgebonden golven
+        richting de pool: van het Iberisch Schiereiland, langs de Golf van Biskaje en het
+        plat ten westen van de Britse Eilanden, naar Noorwegen. In een recente
+        <a href="https://doi.org/10.22541/essoar.15012694/v1">preprint</a> brengen we deze
+        golven in kaart in een regionale oceaanreanalyse met hoge resolutie (1/36&deg;).
+      </p>
+
+      <!-- Your discussion goes here. -->
+
+      <figure>
+        <img src="figures/ctw-correlation-lag.jpg" alt="Maps of the western European shelf showing (a) sea surface height correlation and (b) the lag of maximum correlation">
+        <figcaption>
+          <span lang="en">(a) Correlation of sea surface height with the location marked by the blue square.
+            (b) Lag at which the correlation is largest, in days.
+            From <a href="https://doi.org/10.22541/essoar.15012694/v1">de Bruijn et al. (2026)</a>.</span>
+          <span lang="nl">(a) Correlatie van de zeespiegelhoogte met de locatie van het blauwe vierkant.
+            (b) Tijdsverschuiving waarbij de correlatie het grootst is, in dagen.
+            Uit <a href="https://doi.org/10.22541/essoar.15012694/v1">de Bruijn et al. (2026)</a>.</span>
+        </figcaption>
+      </figure>
     </section>
 
   </main>
 
   <footer class="site-footer">
-    <div class="container">&copy; 2026 Patrick de Bruijn &middot; Delft University of Technology</div>
+    <div class="container">&copy; 2026 Patrick de Bruijn &middot; <span lang="en">Delft University of Technology</span><span lang="nl">Technische Universiteit Delft</span></div>
   </footer>
 </body>
 </html>

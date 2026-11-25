@@ -7,16 +7,41 @@ docs/
   index.html          Home: profile, about, interests, education
   research.html       Research topics, figures, videos
   publications.html   Publications
+  blog/index.html     List of blog posts
+  blog/YYYY-MM-DD-*.html  One file per post
   css/style.css       All layout and styling (rarely needs editing)
   js/math.js          LaTeX math setup (rarely needs editing)
+  js/lang.js          English/Dutch switch (rarely needs editing)
   images/             Profile photo (profile.jpg)
-  figures/            Research figures
-  videos/             Research videos
+  figures/            Figures (web-sized copies)
+  videos/             Videos
+originals/            Full-size originals of figures (ignored by git, never published)
+tools/                Local helpers (not published)
 ```
 
 To publish a change, edit the file, then commit and push to `main`. The site updates within a minute or two. To preview locally, run `python3 -m http.server -d docs` and open http://localhost:8000.
 
 Each page has short `<!-- ===== Section ===== -->` comments that mark where each section starts.
+
+---
+
+## English and Dutch
+
+Every piece of text appears **twice**, right next to each other: once with `lang="en"` and once with `lang="nl"`. The flag in the header switches between them, and the site remembers the visitor's choice. Equations, images and videos appear only once, without a `lang` attribute.
+
+```html
+<h2 lang="en">About</h2>
+<h2 lang="nl">Over mij</h2>
+<p lang="en">English text …</p>
+<p lang="nl">Nederlandse tekst …</p>
+```
+
+- **Editing text:** change both versions.
+- **Text that is the same in both languages:** leave out `lang` altogether, e.g. `<span class="degree">MSc, Hydraulic Engineering</span>`.
+- **Short pieces inside a line:** use spans, e.g. `<span lang="en">present</span><span lang="nl">heden</span>`.
+- **Page title in the browser tab:** `<title>` holds the English title, and `<meta name="title-nl" content="…">` holds the Dutch one.
+- **Links to a specific language:** add `?lang=nl` or `?lang=en` to the address, e.g. `https://patrickjdebruijn.github.io/research.html?lang=nl`.
+- **Without JavaScript,** visitors see the English text.
 
 ---
 
@@ -47,14 +72,16 @@ Each page has short `<!-- ===== Section ===== -->` comments that mark where each
 <li><a href="https://www.linkedin.com/in/patrick-de-bruijn-a11704140">LinkedIn</a></li>
 ```
 
-**Education:** replace `YYYY`, `Field of study` and `University, City, Country` in the `<ul class="timeline">` list. Each entry looks like this:
+**Education:** each entry in the `<ul class="timeline">` list looks like this:
 
 ```html
 <li>
   <span class="years">2018&ndash;2021</span>
   <span class="entry">
-    <span class="degree">BSc, Physics</span>
-    <span class="place">University, City, Country</span>
+    <span class="degree" lang="en">BSc, Civil Engineering</span>
+    <span class="degree" lang="nl">BSc, Civiele Techniek</span>
+    <span class="place" lang="en">Delft University of Technology, Delft, the Netherlands</span>
+    <span class="place" lang="nl">Technische Universiteit Delft, Delft, Nederland</span>
   </span>
 </li>
 ```
@@ -69,12 +96,26 @@ Each topic is a `<section class="research-topic">` with an `<h2>` and paragraphs
 
 ### Add a figure
 
-Put the image in `docs/figures/` (PNG or JPG; aim for about 2000 px wide and under 1 MB). Then paste this where it should appear:
+1. Put the full-size original in `originals/`, which git ignores.
+2. Make a web copy in `docs/figures/`, about 1400–1800 px wide and under 1 MB, without metadata. Photos from a phone contain your **GPS location**.
+
+   ```sh
+   sips --resampleWidth 1800 originals/my-figure.jpg --out docs/figures/my-figure.jpg
+   python3 tools/strip-jpeg-metadata.py docs/figures/my-figure.jpg
+   strings docs/figures/my-figure.jpg | grep -c Exif    # should print 0
+   ```
+
+   For a tall photo, use `sips -Z 1400`, which limits the longest side, and add `class="narrow"` to its `<figure>`.
+
+3. Paste this where the figure should appear:
 
 ```html
 <figure>
-  <img src="figures/my-figure.png" alt="Short description of the figure">
-  <figcaption>Caption text. Math works here too: $L_R = \sqrt{gH}/|f|$.</figcaption>
+  <img src="figures/my-figure.jpg" alt="Short description of the figure">
+  <figcaption>
+    <span lang="en">Caption text. Math works here too: $L_R = \sqrt{gH}/|f|$.</span>
+    <span lang="nl">Onderschrift.</span>
+  </figcaption>
 </figure>
 ```
 
@@ -117,7 +158,7 @@ A good way to show several results is a separate section near the end of the pag
 
 ## Publications (`docs/publications.html`)
 
-When you have your first publication, delete the `<p class="empty-note">…</p>` line and paste:
+Titles, authors and venues are the same in both languages, so they need no `lang` attributes. To add a paper, paste this:
 
 ```html
 <h2>2027</h2>
@@ -140,6 +181,34 @@ When you have your first publication, delete the `<p class="empty-note">…</p>`
 
 ---
 
+## Blog (`docs/blog/`)
+
+To add a post:
+
+1. Copy an existing post, e.g. `docs/blog/2026-11-24-preprint.html`, to a new file named `docs/blog/YYYY-MM-DD-short-name.html`.
+2. In the new file, change:
+   - `<title>` and `<meta name="title-nl">`;
+   - the two `<h1>` headings;
+   - the `<time>` element: the `datetime="YYYY-MM-DD"` value and both written-out dates;
+   - the paragraphs, in both languages.
+3. Add the post at the **top** of the list in `docs/blog/index.html`:
+
+```html
+<li>
+  <time class="post-date" datetime="2027-01-15"><span lang="en">15 January 2027</span><span lang="nl">15 januari 2027</span></time>
+  <a class="post-link" href="2027-01-15-short-name.html">
+    <span lang="en">English title</span>
+    <span lang="nl">Nederlandse titel</span>
+  </a>
+  <span class="post-summary" lang="en">One-line summary.</span>
+  <span class="post-summary" lang="nl">Samenvatting in één regel.</span>
+</li>
+```
+
+Blog files live one folder deeper, so their links to the rest of the site start with `../`, as in `../figures/my-figure.jpg` and `../css/style.css`.
+
+---
+
 ## Math (LaTeX)
 
 Math works on every page:
@@ -153,7 +222,7 @@ To write a literal `$`, wrap it as `<span class="no-math">$5</span>`. Inside mat
 
 ## Menu, footer, new pages
 
-The header menu and footer are copied in all three HTML files, so change them in each file. To add a page, copy `research.html`, rename the copy, change its content, and add a menu link to every page.
+The header (menu and language flag) and the footer are copied into every HTML file, including the blog pages, so a change there has to be made in each file. To add a page, copy `research.html`, rename the copy, change its content, and add a menu link to every page.
 
 ## Colours and fonts
 

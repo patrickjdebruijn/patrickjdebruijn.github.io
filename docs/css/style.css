@@ -92,6 +92,44 @@ img { max-width: 100%; height: auto; }
   border-bottom: 2px solid var(--accent);
 }
 
+/* ---------- Languages ----------
+   Every text block exists twice: lang="en" and lang="nl". Only the active one is shown.
+   Without JavaScript, English is shown. */
+
+html:not([data-lang="nl"]) body [lang="nl"],
+html[data-lang="nl"] body [lang="en"] { display: none !important; }
+
+.header-right { display: flex; align-items: center; gap: 1.25rem; }
+
+.lang-toggle {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: none;
+  cursor: pointer;
+  line-height: 0;
+}
+
+.lang-toggle:hover,
+.lang-toggle:focus-visible { border-color: var(--border); }
+
+.lang-toggle svg {
+  height: 14px;
+  width: auto;
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
 /* ---------- Main content ---------- */
 
 main { padding: 2.5rem 0 3rem; }
@@ -231,6 +269,24 @@ figcaption {
   line-height: 1.5;
 }
 
+/* Portrait-format images: keep them from filling the whole screen height */
+figure.narrow { max-width: 28rem; margin-left: auto; margin-right: auto; }
+
+/* Empty slot shown until a figure or video is added */
+.media-placeholder {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 9;
+  border: 2px dashed var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--muted);
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+  text-align: center;
+  padding: 1rem;
+}
+
 /* Two figures side by side on wide screens, stacked on phones */
 .figure-grid {
   display: grid;
@@ -273,6 +329,38 @@ figcaption {
 }
 
 .pub-links a:hover { border-color: var(--accent); }
+
+/* ---------- Blog ---------- */
+
+.post-list { list-style: none; padding: 0; margin: 0; }
+
+.post-list li {
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.post-list li:last-child { border-bottom: none; }
+
+.post-list .post-link { font-weight: 600; }
+
+.post-date {
+  display: block;
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.post-summary { display: block; color: var(--muted); }
+
+.post-header { margin-bottom: 1.5rem; }
+.post-header h1 { margin-bottom: 0.35rem; }
+
+.back-link {
+  display: inline-block;
+  margin-top: 2rem;
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+}
 
 /* ---------- Research ---------- */
 
