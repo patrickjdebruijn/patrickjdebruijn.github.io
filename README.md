@@ -42,6 +42,8 @@ Every piece of text appears **twice**, right next to each other: once with `lang
 - **Page title in the browser tab:** `<title>` holds the English title, and `<meta name="title-nl" content="…">` holds the Dutch one.
 - **Links to a specific language:** add `?lang=nl` or `?lang=en` to the address, e.g. `https://patrickjdebruijn.github.io/research.html?lang=nl`.
 - **Without JavaScript,** visitors see the English text.
+- **The language menu** (flags + English/Nederlands) is built by `docs/js/lang.js`. Each page only contains an empty `<div class="lang-switch"></div>` in the header.
+- **After changing `style.css` or `lang.js`,** raise the version number in the links on every page (`style.css?v=2` → `?v=3`). Otherwise visitors' browsers may keep using the old file for a while.
 
 ---
 
